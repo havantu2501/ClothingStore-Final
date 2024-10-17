@@ -50,17 +50,26 @@
             </div>
             <!--banner slider start-->
 
+            <!-- EM LAM PHAN NAY -->
 
 
-            <!--shop tab product-->
-            <div class="shop_tab_product">
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="large" role="tabpanel">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6">
+            <!-- views/product_list.php -->
+            <div class="product_list_section">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Sản phẩm theo danh mục</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <?php if (isset($listProduct) && !empty($listProduct)): ?>
+                        <?php foreach ($listProduct as $product): ?>
+                            <div class="col-lg-3 col-md-4 col-sm-6">
                                 <div class="single_product">
                                     <div class="product_thumb">
-                                        <a href="single-product.html"><img src="assets/img/product/product1.jpg" alt=""></a>
+                                        <a href="<?= BASE_URL . '?act=detail-product&id_product=' . $product['id']; ?>">
+                                            <img src="<?= BASE_URL . $product['thumbnail'] ?>" alt="">
+                                        </a>
+
                                         <div class="img_icone">
                                             <img src="assets/img/cart/span-new.png" alt="">
                                         </div>
@@ -69,8 +78,10 @@
                                         </div>
                                     </div>
                                     <div class="product_content">
-                                        <span class="product_price">$50.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a></h3>
+                                        <span class="product_price"><?= $product['price'] ?>$</span>
+                                        <h3 class="product_title">
+                                            <a href="<?= BASE_URL . '?act=detail-product&id_product=' . $product['id']; ?>"><?= $product['title'] ?></a>
+                                        </h3>
                                     </div>
                                     <div class="product_info">
                                         <ul>
@@ -80,13 +91,18 @@
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                    </div>
-
-
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Không có sản phẩm nào trong danh mục này.</p>
+                    <?php endif; ?>
                 </div>
             </div>
+
+            <!-- EM LAM PHAN NAY -->
+
+
+
+
             <!--shop tab product end-->
 
         </div>

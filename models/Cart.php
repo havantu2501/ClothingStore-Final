@@ -11,10 +11,13 @@ class Cart
     {
         try {
 
-            $sql = 'SELECT * FROM cart WHERE user_id = :user_id';
+            $sql = 'SELECT * FROM cart WHERE user_id = :user_id AND soft_delete = :soft_delete';
 
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute([':user_id' => $id]);
+            $stmt->execute([
+                ':user_id' => $id,
+                ':soft_delete' => 0
+            ]);
 
             return $stmt->fetch();
         } catch (Exception $e) {
@@ -57,7 +60,7 @@ class Cart
             return [];
         }
     }
-    
+
     public function updateQuantity($cart_id, $product_id, $quantity)
     {
         try {
@@ -83,6 +86,26 @@ class Cart
 
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([':cart_id' => $cart_id, ':product_id' => $product_id, ':quantity' => $quantity]);
+
+            return $this->conn->lastInsertId();
+        } catch (Exception $e) {
+            echo 'Lỗi: ' . $e->getMessage();
+            return [];
+        }
+    }
+
+    public function removeCart($cart_id, $user_id)
+    {
+        try {
+
+            $sql = 'UPDATE cart SET soft_delete = :soft_delete WHERE id = :id AND user_id = :user_id';
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':id' => $cart_id,
+                ':user_id' => $user_id,
+                ':soft_delete' => 1
+            ]);
 
             return $this->conn->lastInsertId();
         } catch (Exception $e) {

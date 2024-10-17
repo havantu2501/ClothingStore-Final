@@ -36,6 +36,27 @@ class UserClient
             return false;
         }
     }
+
+    public function insertUserClient($fullname, $email, $password, $address, $phone_number, $role_id)
+    {
+        try {
+            $sql = 'INSERT INTO user (fullname, email, password, address, phone_number, role_id)
+         VALUES (:fullname, :email, :password, :address, :phone_number, :role_id)';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':fullname' => $fullname,
+                ':email' => $email,
+                ':password' => $password,
+                ':address' => $address,
+                ':phone_number' => $phone_number,
+                ':role_id' => $role_id,
+
+            ]);
+            return true;
+        } catch (\Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
     public function getUserFromEmail($email)
     {
         try {

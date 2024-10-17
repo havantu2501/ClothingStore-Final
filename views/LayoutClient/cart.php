@@ -69,16 +69,28 @@
                         <div class="coupon_inner">
                             <div class="cart_subtotal">
                             </div>
+                            <?php
+                            // Gán giá trị mặc định nếu chưa được khởi tạo
+                            $totalMoney = isset($totalMoney) ? $totalMoney : 0;
+                            $shippingFee = isset($shippingFee) ? $shippingFee : 50;
+
+                            // Tính tổng tiền bao gồm cả phí vận chuyển
+                            $totalWithShipping = $totalMoney + $shippingFee;
+                            ?>
                             <div class="cart_subtotal">
                                 <p>Total</p>
-                                <p class="cart_amount"><?= $totalMoney ?></p>
+                                <p class="cart_amount"><?= $totalWithShipping ?>$</p> <!-- Hiển thị tổng tiền bao gồm phí ship -->
                             </div>
                             <div class="checkout_btn">
-                                <input type="text" name="total_money" value=<?= $totalMoney ?>>
-                                <input type="text" name="cart_id" value=<?= $cart['id'] ?>>
-                                <button type="submit">Proceed to Checkout
+                                <p>Total Money: <?= $totalMoney ?>$</p>
 
-                                </button>
+                                <p> Shipping Fee: <?= $shippingFee ?>$</p>
+
+
+                                <a href="<?= BASE_URL . '?act=checkout' ?>">
+                                    Proceed to Checkout
+                                </a>
+
                             </div>
                         </div>
                     </div>

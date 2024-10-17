@@ -14,7 +14,7 @@
 
                         <li><a href="#address" data-bs-toggle="tab" class="nav-link">Account</a></li>
                         <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">Account details</a></li>
-                        <li><a href="login.html" class="nav-link">logout</a></li>
+                        <li><a href="<?= BASE_URL . '?act=logout' ?>" class="nav-link">logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -22,80 +22,113 @@
                 <!-- Tab panes -->
                 <div class="tab-content dashboard_content">
                     <div class="tab-pane fade show active" id="dashboard">
-                        <h3>Dashboard </h3>
-                        <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a href="#">Edit your password and account details.</a></p>
+                        <h3>Dashboard</h3>
+                        <p>Từ bảng điều khiển tài khoản của bạn, bạn có thể dễ dàng kiểm tra &amp; xem các <a href="#">đơn hàng gần đây</a>, quản lý <a href="#">địa chỉ giao hàng và thanh toán</a>, và <a href="#">chỉnh sửa mật khẩu và chi tiết tài khoản của bạn.</a></p>
                     </div>
                     <div class="tab-pane fade" id="orders">
                         <h3>Orders</h3>
-                        <div class="coron_table table-responsive">
+                        <div class="">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Order</th>
-                                        <th>Date</th>
+                                        <th>Code Order</th>
+                                        <th>Tên Người Nhận</th>
                                         <th>Status</th>
+                                        <th>Status Change</th>
                                         <th>Total</th>
-                                        <th>Actions</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>May 10, 2023</td>
-                                        <td><span class="success">Completed</span></td>
-                                        <td>$25.00 for 1 item </td>
-                                        <td><a href="cart.html" class="view">view</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>May 10, 2023</td>
-                                        <td>Processing</td>
-                                        <td>$17.00 for 1 item </td>
-                                        <td><a href="cart.html" class="view">view</a></td>
-                                    </tr>
+                                    <?php foreach ($orders as $key => $order): ?>
+                                        <form method="post" action="">
+                                            <tr>
+                                                <td class="text-center"><?= htmlspecialchars($order['order_code']) ?></td>
+                                                <td>
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+                                                            <div class="widget-content-left flex2">
+                                                                <div class="widget-heading"><?= htmlspecialchars($order['fullname']) ?> </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <?php
+                                                    // Hiển thị trạng thái hiện tại
+                                                    switch ($order['status_id']) {
+                                                        case 1:
+                                                            echo 'Đã Xử Lý';
+                                                            break;
+                                                        case 2:
+                                                            echo 'Chưa Xử Lý';
+                                                            break;
+                                                        case 3:
+                                                            echo 'Đang Giao Hàng';
+                                                            break;
+                                                        case 4:
+                                                            echo 'Đã Giao Hàng';
+                                                            break;
+                                                        case 6:
+                                                            echo 'Hoàn Hàng';
+                                                            break;
+                                                        default:
+                                                            echo 'Hủy Bỏ';
+                                                            break;
+                                                    }
+                                                    ?>
+                                                </td>
+
+                                                <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
+                                                <td class="text-center">
+                                                    <select name="new_status_id">
+
+                                                        <option value="6" <?= $order['status_id'] == 6 ? 'selected' : '' ?>>Hoàn Hàng</option>
+                                                        <option value="5" <?= $order['status_id'] == 5 ? 'selected' : '' ?>>Hủy Hàng</option>
+                                                    </select>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <?= number_format($order['total_money'], 0, ',', '.') ?> $
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="submit" name="update_status" class="btn btn-outline-danger" ?>Update Status</button>
+                                                </td>
+                                            </tr>
+                                        </form>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
                     <div class="tab-pane" id="address">
-                        <p>The following addresses will be used on the checkout page by default.</p>
-                        <h4 class="billing-address"></h4>
-                        <?php if (isset($_SESSION['user_client'])) {
-                            echo  $_SESSION['user_client'];
-                        } ?>
+                        <div class="col-lg-6 mb-30" style="background:#f8f9fa; border-radius:10px; padding:20px; box-shadow:0 4px 8px rgba(0,0,0,0.1); margin-bottom:25px;">
+                            <p style="font-weight:bold; font-size:20px; color:#444; margin-bottom:15px;">Thông tin tài khoản</p>
+                            <p style="font-size:18px; color:#333; margin:10px 0;"><strong>Full Name:</strong> <?= htmlspecialchars($user['fullname']) ?></p>
+                            <p style="font-size:18px; color:#333; margin:10px 0;"><strong>Phone:</strong> <?= htmlspecialchars($user['phone_number']) ?></p>
+                            <p style="font-size:18px; color:#333; margin:10px 0;"><strong>Address:</strong> <?= htmlspecialchars($user['address']) ?></p>
+                            <p style="font-size:18px; color:#333; margin:10px 0;"><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
+                        </div>
                     </div>
+
                     <div class="tab-pane fade" id="account-details">
-                        <h3>Account details </h3>
+                        <h3>Account details</h3>
                         <div class="login">
                             <div class="login_form_container">
                                 <div class="account_login_form">
                                     <form action="<?= BASE_URL . '?act=my-account' ?>">
-                                        <p>Already have an account? <a href="#">Log in instead!</a></p>
-                                        <div class="input-radio">
-                                            <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mr.</span>
-                                            <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mrs.</span>
-                                        </div> <br>
-
                                         <label>Name</label>
-                                        <input type="text" name="last-name">
+                                        <input type="text" name="fullname" value="<?= htmlspecialchars($user['fullname']) ?>">
                                         <label>Email</label>
-                                        <input type="text" name="email-name">
+                                        <input type="text" name="email" value="<?= htmlspecialchars($user['email']) ?>">
                                         <label>Password</label>
                                         <input type="password" name="user-password">
 
                                         <br>
-                                        <span class="custom_checkbox">
-                                            <input type="checkbox" value="1" name="optin">
-                                            <label>Receive offers from our partners</label>
-                                        </span>
-                                        <br>
-                                        <span class="custom_checkbox">
-                                            <input type="checkbox" value="1" name="newsletter">
-                                            <label>Sign up for our newsletter<br><em>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.</em></label>
-                                        </span>
                                         <div class="save_button primary_btn default_button">
-                                            <a href="#">Save</a>
+                                            <button type="submit">Save</button>
                                         </div>
                                     </form>
                                 </div>
@@ -103,6 +136,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

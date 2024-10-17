@@ -41,7 +41,7 @@
                             <div class="position-relative row form-group">
                                 <label for="price" class="col-md-3 text-md-right col-form-label">Price</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input required name="price" id="price" placeholder="Price" type="text"
+                                    <input required name="price" id="price" placeholder="Price" type="number"
                                         class="form-control" value="<?= $product['price'] ?>">
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                             <div class="position-relative row form-group">
                                 <label for="discount" class="col-md-3 text-md-right col-form-label">Discount</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input name="discount" id="discount" placeholder="Discount" type="text"
+                                    <input name="discount" id="discount" placeholder="Discount" type="number"
                                         class="form-control" value="<?= $product['discount'] ?>">
                                 </div>
                             </div>

@@ -49,8 +49,7 @@
                                     <th class="text-center">Discount</th>
                                     <th class="text-center">Image</th>
                                     <th class="text-center">Description</th>
-                                    <th class="text-center">Create_At</th>
-                                    <th class="text-center">Update_Up</th>
+
                                     <th class="text-center">Action</th>
 
 
@@ -86,8 +85,7 @@
                                         <td class=" text-center">
                                             <?= $product['description'] ?>
                                         </td>
-                                        <td class="text-center"> <?= $product['created_at'] ?></td>
-                                        <td class="text-center"> <?= $product['updated_at'] ?></td>
+
 
                                         <td class="text-center">
                                             <a href="<?= BASE_URL_ADMIN . '?act=show-product&id_product=' . $product['id'] ?>"

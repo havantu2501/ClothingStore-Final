@@ -37,7 +37,7 @@ class AdminOrder
         try {
             $sql = 'SELECT orders.*, status_orders.status_name 
             FROM orders
-            INNER JOIN status_orders ON orders.id = status_orders.id
+            INNER JOIN status_orders ON orders.status_id = status_orders.id
              WHERE orders.id = :id';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
@@ -52,8 +52,10 @@ class AdminOrder
     public function getListProductOrder($id)
     {
         try {
-            $sql = 'SELECT * FROM order_details
-             WHERE order_id = :id';
+            $sql = 'SELECT order_details.*, product.title
+             FROM order_details
+             INNER JOIN product ON order_details.product_id = product.id
+             WHERE order_details.order_id = :id';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':id' => $id

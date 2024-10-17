@@ -7,10 +7,10 @@
                         <h3>About us</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         <div class="footer_widget_contect">
-                            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 19 Interpro Road Madison, AL 35758, USA</p>
+                            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 13 Trịnh Văn Bô, Nam Từ Liêm, Hà Nội</p>
 
                             <p><i class="fa fa-mobile" aria-hidden="true"></i> (012) 234 432 3568</p>
-                            <a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> Contact@plazathemes.com </a>
+                            <a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> havantuabc@gmail.com </a>
                         </div>
                     </div>
                 </div>

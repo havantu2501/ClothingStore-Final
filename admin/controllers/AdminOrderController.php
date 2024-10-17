@@ -24,9 +24,9 @@ class AdminOrderController
     {
         $id = $_GET['id_order'];
         $order = $this->modelOrder->getOrderDetail($id);
-
+        
         $productOrder = $this->modelOrder->getListProductOrder($id);
-
+        
         $listStatusOder = $this->modelOrder->getAllStatusOder($id);
 
         require_once './views/danhmuc/showOrder.php';

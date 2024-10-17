@@ -75,6 +75,7 @@
                                         <option <?= $order['status_id'] == 3 ? 'selected' : '' ?> value="3">Đang Giao Hàng</option>
                                         <option <?= $order['status_id'] == 4 ? 'selected' : '' ?> value="4">Đã Giao Hàng</option>
                                         <option <?= $order['status_id'] == 5 ? 'selected' : '' ?> value="5">Hủy Bỏ</option>
+                                        <option <?= $order['status_id'] == 6 ? 'selected' : '' ?> value="6">Hoàn Hàng</option>
                                     </select>
                                 </div>
                             </div>

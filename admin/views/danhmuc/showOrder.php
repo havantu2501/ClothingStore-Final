@@ -53,17 +53,7 @@
                                 <div class="alert alert-<?= $clorAlert; ?>" role="alert">
                                     Đơn Hàng :
                                     <?php
-                                    if ($order['status_id'] == 1) {
-                                        echo 'Đã Xử Lý';
-                                    } elseif ($order['status_id'] == 2) {
-                                        echo 'Chưa Xử Lý';
-                                    } elseif ($order['status_id'] == 3) {
-                                        echo 'Đang Giao Hàng';
-                                    } elseif ($order['status_id'] == 4) {
-                                        echo 'Đã Giao Hàng';
-                                    } else {
-                                        echo 'Hủy Bỏ';
-                                    }
+                                    echo $order['status_name'];
                                     ?>
                                 </div>
 
@@ -109,16 +99,64 @@
                                         Tổng tiền
                                     </label>
                                     <div class="col-md-9 col-xl-8">
-                                        <p class="form-control-plaintext"><?= number_format($order['total_money'], 0, ',', '.') ?> $</p>
+                                        <p class="form-control-plaintext">
+                                            <?= number_format($order['total_money'], 0, ',', '.') ?> $</p>
                                     </div>
                                 </div>
 
 
 
-                                <div class="position-relative row form-group">
-                                    <label class="col-md-3 text-md-right col-form-label">Ngày đặt hàng</label>
-                                    <div class="col-md-9 col-xl-8">
-                                        <p class="form-control-plaintext"><?= date('d/m/Y', strtotime($order['order_date'])) ?></p>
+
+                                <div class="row">
+
+                                    <div class="col-12 table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Name Product</th>
+                                                    <th>Price</th>
+                                                    <th>Quantitty</th>
+                                                    <th>Total Money</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($productOrder as $key => $product): ?>
+                                                    <tr>
+                                                        <td><?= $key + 1 ?></td>
+                                                        <td><?= $product['title'] ?></td>
+                                                        <td><?= $product['price'] ?></td>
+                                                        <td><?= $product['quantity'] ?></td>
+                                                        <td><?= $product['total_money'] ?></td>
+
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                        <?php
+                                        // Gán giá trị mặc định nếu chưa được khởi tạo
+
+                                        $shippingFee = isset($shippingFee) ? $shippingFee : 50;
+
+
+                                        ?>
+
+                                        <div class="col-6">
+                                            <p class="lead">Ngày đặt hàng: <?= date('d/m/Y', strtotime($order['order_date'])) ?> </p>
+                                            <div class="table-reponsive">
+                                                <table class="table">
+                                                    <tr>
+                                                        <th style="width:50%">Shipping Fee : </th>
+                                                        <td><?= $shippingFee ?>$</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width:50%">Total Monney : </th>
+                                                        <td><?= number_format($order['total_money'], 0, ',', '.') ?>$</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
 
@@ -130,6 +168,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- footer -->
 <?php include './views/layout/footer.php'; ?>
@@ -149,7 +188,8 @@
                     var rel = elem.rel;
                     if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
                         var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date()
+                            .valueOf());
                     }
                     parent.appendChild(elem);
                 }

@@ -42,4 +42,30 @@ class Product
             echo "Lỗi" . $e->getMessage();
         }
     }
+    public function getProductById($product_id)
+    {
+        $sql = 'SELECT * FROM Product WHERE id = :id';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $product_id]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getProductsByCategory($categoryId)
+    {
+        try {
+            $sql = 'SELECT product.*, category.name AS category_name 
+                    FROM product 
+                    INNER JOIN category ON product.category_id = category.id 
+                    WHERE product.category_id = :category_id';
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':category_id' => $categoryId]);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo 'Lỗi: ' . $e->getMessage();
+            return [];
+        }
+    }
 }

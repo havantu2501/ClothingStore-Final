@@ -18,14 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="page-title-actions">
-                    <a href="<?= BASE_URL_ADMIN . '?act=form-add-order' ?>" class="btn btn-primary">
-                        <span class="btn-icon-wrapper pr-2 opacity-8">
-                            <i class="fa fa-plus fa-w-20"></i>
-                        </span>
-                        Thêm Order
-                    </a>
-                </div>
+
             </div>
         </div>
 
@@ -79,6 +72,8 @@
                                                 echo 'Đang Giao Hàng';
                                             } elseif ($order['status_id'] == 4) {
                                                 echo 'Đã Giao Hàng';
+                                            } elseif ($order['status_id'] == 6) {
+                                                echo 'Hoàn Hàng';
                                             } else {
                                                 echo 'Hủy Bỏ';
                                             }

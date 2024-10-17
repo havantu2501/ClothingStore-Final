@@ -43,7 +43,7 @@
                             <div class="position-relative row form-group">
                                 <label class="col-md-3 text-md-right col-form-label">Price</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input required name="price" placeholder="Price" id="price" type="text"
+                                    <input required name="price" placeholder="Price" id="price" type="number"
                                         class="form-control" value="">
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                 <label class="col-md-3 text-md-right col-form-label">Discount</label>
                                 <div class="col-md-9 col-xl-8">
                                     <input name="discount" id="discount" placeholder="Discount" class="form-control"
-                                        value="">
+                                        value="" type="number">
                                 </div>
                             </div>
 

@@ -52,7 +52,6 @@ class AdminProductController
 
 
 
-            // $file_thumb = uploadFile1($thumbnail, './uploads/');
             $foderupload = './uploads/';
             $pathStorage = $foderupload . time() . $thumbnail['name'];
             $from = $thumbnail['tmp_name'];
