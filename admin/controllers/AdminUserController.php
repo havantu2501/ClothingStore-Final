@@ -231,4 +231,55 @@ class AdminUserController
             die;
         }
     }
+    //
+    public function postEditPassword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $old_pass = $_POST['old_pass'];
+            $new_pass = $_POST['new_pass'];
+            $confirm_pass = $_POST['confirm_pass'];
+
+            // lấy thông tin user từ session
+
+            $user = $this->modelUser->getUserFromEmail($_SESSION['user_admin']);
+            // var_dump($user);
+            // die;
+            $checkPass = password_verify($old_pass, $user['password']);
+            $errors = [];
+
+            if (!$checkPass) {
+                $errors['old_pass'] = 'Mật khẩu người dùng không đúng';
+            }
+            if ($new_pass !== $confirm_pass) {
+                $errors['confirm_pass'] = 'Mật khẩu nhập lại không khớp';
+            }
+            if (empty($old_pass)) {
+                $errors['old_pass'] = 'Vui lòng điền Mật Khẩu Cũ';
+            }
+            if (empty($new_pass)) {
+                $errors['new_pass'] = 'Vui lòng điền Mật Khẩu Mới';
+            }
+            if (empty($confirm_pass)) {
+                $errors['confirm_pass'] = 'Vui lòng điền trường Nhập Lại Mật Khẩu';
+            }
+
+            $_SESSION['error'] = $errors;
+            if (!$errors) {
+                $hashPass = password_hash($new_pass, PASSWORD_BCRYPT);
+                $statusPass = $this->modelUser->resetPassword($user['id'], $hashPass);
+                if ($statusPass) {
+                    $_SESSION['success'] = 'Đổi Password Thành Công';
+                    $_SESSION['flash'] = true;
+                    header('Location: ' . BASE_URL_ADMIN . '?act=form-edit-user&id_user=' . $user['id']);
+                }
+            } else {
+                $_SESSION['flash'] = true;
+                // header('Location: ' . BASE_URL_ADMIN . '?act=user');
+                header('Location: ' . BASE_URL_ADMIN . '?act=form-edit-user&id_user=' . $user['id']);
+                exit();
+                // var_dump($errors);
+                // die;
+            }
+        }
+    }
 }

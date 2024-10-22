@@ -192,4 +192,17 @@ class AdminUser
          echo "Lỗi" . $e->getMessage();
       }
    }
+   public function getUserFromEmail($email)
+   {
+      try {
+         $sql = 'SELECT * FROM user WHERE email = :email';
+         $stmt = $this->conn->prepare($sql);
+         $stmt->execute([
+            ':email' => $email
+         ]);
+         return $stmt->fetch();
+      } catch (\Exception $e) {
+         echo "Lỗi" . $e->getMessage();
+      }
+   }
 }

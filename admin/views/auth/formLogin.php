@@ -33,11 +33,18 @@
                                             <span>Please sign in to your account below.</span>
                                         </h4>
 
-                                        <?php if (isset($_SESSION['error'])) { ?>
-                                            <p class="text-danger"> <?= $_SESSION['error'] ?> </p>
+                                        <?php if (isset($_SESSION['error'])): ?>
+                                            <?php if (is_array($_SESSION['error'])): ?>
+                                                <?php foreach ($_SESSION['error'] as $error): ?>
+                                                    <p class="text-danger"><?= htmlspecialchars($error) ?></p>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <p class="text-danger"><?= htmlspecialchars($_SESSION['error']) ?></p>
+                                            <?php endif; ?>
                                             <?php unset($_SESSION['error']); // Xóa lỗi sau khi hiển thị 
                                             ?>
-                                        <?php } ?>
+                                        <?php endif; ?>
+
 
                                     </div>
                                     <form class="" action='<?= BASE_URL_ADMIN . '?act=check-login-admin' ?>' method="post">

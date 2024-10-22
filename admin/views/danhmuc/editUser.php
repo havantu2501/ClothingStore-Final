@@ -17,9 +17,33 @@
                         Edit User
 
                     </div>
+
                 </div>
 
             </div>
+            <?php if (isset($_SESSION['success'])): ?>
+                <div class="alert alert-info alert-dismissable">
+                    <a class="panel-close close" data-dismiss="alert">x</a>
+                    <i class="fa fa-coffee"></i>
+                    <?= htmlspecialchars($_SESSION['success']) ?>
+                </div>
+                <?php unset($_SESSION['success']); ?>
+            <?php elseif (isset($_SESSION['error'])): ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <a class="panel-close close" data-dismiss="alert">x</a>
+                    <i class="fa fa-coffee"></i>
+                    <?php
+                    if (is_array($_SESSION['error'])):
+                        foreach ($_SESSION['error'] as $error): ?>
+                            <p><?= htmlspecialchars($error) ?></p>
+                        <?php endforeach;
+                    else: ?>
+                        <p><?= htmlspecialchars($_SESSION['error']) ?></p>
+                    <?php endif; ?>
+                </div>
+                <?php unset($_SESSION['error']); ?>
+            <?php endif; ?>
+
         </div>
 
         <div class="row">
@@ -114,8 +138,85 @@
         </div>
     </div>
 
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+
+                    <div>
+                        <i class="fa-regular fa-user"></i>
+                        Change Password
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <form action="<?= BASE_URL_ADMIN . '?act=edit-password' ?>" method="POST">
+                            <input type="text" name="id" value="<?= $user['id'] ?>" hidden>
+
+                            <div class="position-relative row form-group">
+                                <label for="password"
+                                    class="col-md-3 text-md-right col-form-label">Password</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <input name="old_pass" id="password" placeholder="Password" type="password"
+                                        class="form-control" value="">
+                                    <?php if (isset($_SESSION['error']['old_pass'])) { ?>
+                                        <p class="text-danger"><?= $_SESSION['error']['old_pass'] ?></p>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                            <div class="position-relative row form-group">
+                                <label for="password"
+                                    class="col-md-3 text-md-right col-form-label">New Password</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <input name="new_pass" id="password" placeholder="Password" type="password"
+                                        class="form-control" value="">
+                                    <?php if (isset($_SESSION['error']['new_pass'])) { ?>
+                                        <p class="text-danger"><?= $_SESSION['error']['new_pass'] ?></p>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                            <div class="position-relative row form-group">
+                                <label for="password"
+                                    class="col-md-3 text-md-right col-form-label">Confirm Password</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <input name="confirm_pass" id="password" placeholder="Password" type="password"
+                                        class="form-control" value="">
+                                    <?php if (isset($_SESSION['error']['confirm_pass'])) { ?>
+                                        <p class="text-danger"><?= $_SESSION['error']['confirm_pass'] ?></p>
+                                    <?php } ?>
+                                </div>
+                            </div>
+
+                            <div class="position-relative row form-group mb-1">
+                                <div class="col-md-9 col-xl-8 offset-md-2">
+
+
+                                    <button type="submit"
+                                        class="btn-shadow btn-hover-shine btn btn-primary">
+                                        <span class="btn-icon-wrapper pr-2 opacity-8">
+                                            <i class="fa fa-download fa-w-20"></i>
+                                        </span>
+                                        <span>Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>
+
 <!-- End Main -->
 
 
