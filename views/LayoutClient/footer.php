@@ -9,7 +9,7 @@
                         <div class="footer_widget_contect">
                             <p><i class="fa fa-map-marker" aria-hidden="true"></i> 13 Trịnh Văn Bô, Nam Từ Liêm, Hà Nội</p>
 
-                            <p><i class="fa fa-mobile" aria-hidden="true"></i> (012) 234 432 3568</p>
+                            <p><i class="fa fa-mobile" aria-hidden="true"></i> 0344327577</p>
                             <a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> havantuabc@gmail.com </a>
                         </div>
                     </div>

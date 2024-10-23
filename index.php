@@ -23,6 +23,8 @@ match ($act) {
     '/' => (new HomeController())->home(),
     'homepage' => (new HomeController())->homepage(),
     'productpage' => (new HomeController())->productpage(),
+    'contactpage' => (new HomeController())->contactpage(),
+
     // Auth
     'my-account' => (new HomeController())->myAccount(),
     'login' => (new HomeController())->login(),

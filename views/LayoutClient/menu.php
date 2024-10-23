@@ -27,7 +27,7 @@ require_once './admin/model/AdminCategory.php';
                             <?php endforeach; ?>
 
 
-                            <li><a href="contact.html">contact us</a></li>
+                            <li><a href="<?= BASE_URL . '?act=contactpage' ?>">contact us</a></li>
 
                         </ul>
                     </nav>

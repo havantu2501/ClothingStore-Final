@@ -28,6 +28,10 @@ class HomeController
         $listProduct = $this->modelProduct->getAllProduct();
         require_once 'views/LayoutClient/listProduct.php';
     }
+    public function contactpage()
+    {
+        require_once 'views/LayoutClient/contact.php';
+    }
 
     public function myAccount()
     {
